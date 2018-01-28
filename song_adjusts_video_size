@@ -1,0 +1,31 @@
+import processing.video.*;
+Movie movie;
+//sound library comes after movie library
+import processing.sound.*;
+SoundFile song;
+Amplitude amp;
+
+
+void setup(){
+fullScreen();
+background(0);
+movie = new Movie(this, "your movie.mov");
+movie.loop();
+song = new SoundFile(this,"your sound file.wav");
+song.loop();
+amp = new Amplitude(this);
+amp.input(song);
+}
+
+void movieEvent(Movie m) {
+  m.read();
+}
+
+void draw(){
+ fill(0);
+ imageMode(CENTER);
+ rect(0,0,width,height);
+float msize = map(amp.analyze(),0,.6,.7,1.7);
+image(movie, width/2, height/2, width * msize, height * msize);
+ 
+}
